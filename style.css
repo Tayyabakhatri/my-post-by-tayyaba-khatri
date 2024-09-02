@@ -1,0 +1,34 @@
+@font-face {
+   font-family: "htowert";
+   src: url(fonts/HTOWERT.TTF);
+}
+
+
+
+#title{
+   width: 100%;
+   border: none;
+   outline: none;
+}
+#description{
+    width: 100%;
+    border: none;
+    outline: none;
+}
+.img{
+   width: 110px;
+}
+.editBtn{
+   border: none;
+ font-weight: bold;
+   font-family: htowert;
+   background-color:rgba(0, 0, 0, 0.685);
+   color: white;
+}
+.delPost{
+font-family: htowert;
+font-weight: bold;
+border: none;
+}
+  
+   
