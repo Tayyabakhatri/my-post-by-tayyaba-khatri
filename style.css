@@ -17,6 +17,7 @@
 }
 .img{
    width: 110px;
+
 }
 .editBtn{
    border: none;
@@ -30,5 +31,7 @@ font-family: htowert;
 font-weight: bold;
 border: none;
 }
-  
+.border-effect{
+   border: 1px solid black;
+}  
    

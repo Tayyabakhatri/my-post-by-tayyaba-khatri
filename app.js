@@ -1,27 +1,16 @@
-// function showPost(){
-//     var input = document.getElementById("title")
-//     var heading = input.value
-//     var postDiv = document.getElementById("show-post");
-//     var title=document.createElement("h1")
-//     var content=document.createTextNode(heading)
-//     title.appendChild(content)
-//     postDiv.appendChild(title)
-//     input.value="";
-//     var textArea=document.getElementById("description")
-//     var text= textArea.value
-//     var postDis = document.createElement("p")
-//     var postDescription = document.createTextNode(text)
-//     postDis.appendChild(postDescription)
-//     postDiv.appendChild(postDis)
-// }
+
 var postDiv = document.getElementById("show-post");
 var input = document.getElementById("title");
 var textArea=document.getElementById("description");
 var selectedBgSrc=""
-function backgroundSelection(scr){
-    selectedBgSrc=scr
-    document.getElementById("chooseBg").innerHTML=`<img ${src}alt="Selected Background" style="width: 60px; height: 50px; border: 1px solid #ccc;">`
-
+function backgroundSelection(src){
+    selectedBgSrc=src
+    document.getElementById("chooseBg").innerHTML=`<img "${src}"alt="Selected Background" style="background-position:center; ">`
+var images= document.getElementsByClassName("img")
+for(var i=0 ;i<images.length;i++){
+images[i].className+=" img"
+} 
+event.target.className+=" border-effect"
 }
 function showPost(){
     if(input.value&&textArea.value){
@@ -59,8 +48,8 @@ function deletePost(event){
 var parentNode = event.target.parentNode.parentNode
 parentNode.remove()
     }
- 
-   
+
+  
 
 
 
