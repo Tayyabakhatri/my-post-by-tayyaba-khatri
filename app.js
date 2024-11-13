@@ -14,7 +14,9 @@ event.target.className+=" border-effect"
 }
 function showPost(){
     if(input.value&&textArea.value){
-        postDiv.innerHTML=`<div class="card m-3" style="background-image: url(${selectedBgSrc}); background-size:cover; background-repeat:no-repeat;background-position:center">
+        postDiv.innerHTML=`
+        <h1>Current Post</h1>
+        <div class="card my-2" style="background-image: url(${selectedBgSrc}); background-size:cover; background-repeat:no-repeat;background-position:center">
         <div class="card-header">@Post</div>
         <div>
         <h1 class="p-3">${input.value}</h1>
@@ -23,11 +25,15 @@ function showPost(){
         </div>
         
         <div class="d-flex gap-3 p-3"><button class="editBtn" onclick="editPost(event)">Edit</button>
-        <button class="delPost" onclick="deletePost(event)">Delete</button></div>
+        <button class="delPost" id="del" onclick="deletePost(event)">Delete</button></div>
         </div>
         `
         input.value=""
         textArea.value=""
+        }
+        else if(input.value===""&&textArea.value){
+
+            //condition dalni he
         }
 
     }
@@ -49,7 +55,6 @@ var parentNode = event.target.parentNode.parentNode
 parentNode.remove()
     }
 
-  
 
 
 

@@ -7,16 +7,25 @@
 
 #title{
    width: 100%;
+   height: 40px;
    border: none;
    outline: none;
+   border-radius: 5px;
+   background-color: #dfdedeaf;
+   color: white;
+   font-size: x-large;
 }
 #description{
     width: 100%;
     border: none;
     outline: none;
+    border-radius: 5px;
+       background-color: #f0f0f0af;
+       color: white;
 }
 .img{
    width: 110px;
+   margin-bottom: 5px;
 
 }
 .editBtn{
@@ -34,4 +43,9 @@ border: none;
 .border-effect{
    border: 1px solid black;
 }  
+#postMaking{
+   background-color:#54b0d49a;
+border: none;
+border-radius: 10px;
+}
    
