@@ -1,26 +1,31 @@
 import {
-    // collection,
-    // addDoc,
-    db,
-    setDoc,
-    doc,
-    getAuth,
-    auth
+  db,
+  setDoc,
+  doc,
+  serverTimestamp,
 } from "./firebase.js"
-var title = document.getElementById("title");
-var textArea = document.getElementById("description");
-let previousPost = document.getElementById('previous');
-let prePost = document.getElementById('prePostBtn')
-prePost.addEventListener('click', async () => {
-      //firestore
-  const currentUser=auth.currentUser
-  console.log(currentUser.uid);
-  
-  await setDoc(doc(db, "posts", currentUser.uid), {
-    postTitle: title.value,
-    description: textArea.value
-  });
 
-      
+
+window.addEventListener('DOMContentLoaded', () => {
+  // let prePost = document.getElementById('prePostBtn')
+  let send=document.getElementById("send")
+
+ send.addEventListener('click', async () => {
+    var title = document.getElementById("title")
+    var textArea = document.getElementById("description")
+  
+    let id = Math.random().toString()
+    console.log(id)
+
+    await setDoc(doc(db, "posts", id), {
+      postTitle: title.value,
+      description: textArea.value,
+      createdAt: serverTimestamp()
+    });
+  })
 })
+
+
+
+
 
