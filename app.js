@@ -1,44 +1,51 @@
-
+import {
+    db,
+    setDoc,
+    doc,
+    serverTimestamp,
+    getDocs,
+    collection
+  } from "./firebase.js"
 var postDiv = document.getElementById("show-post");
 var input = document.getElementById("title");
 var textArea=document.getElementById("description");
 var selectedBgSrc=""
-function backgroundSelection(src){
-    selectedBgSrc=src
-    document.getElementById("chooseBg").innerHTML=`<img "${src}"alt="Selected Background" style="background-position:center; ">`
-var images= document.getElementsByClassName("img")
-for(var i=0 ;i<images.length;i++){
-images[i].className+=" img"
-} 
-event.target.className+=" border-effect"
-}
-function showPost(){
-    if(input.value&&textArea.value){
-        postDiv.innerHTML=`
-        <h1>Current Post</h1>
-        <div class="card my-2" style="background-image: url(${selectedBgSrc}); background-size:cover; background-repeat:no-repeat;background-position:center">
-        <div class="card-header">@Post</div>
-        <div>
-        <h1 class="p-3">${input.value}</h1>
-        <hr>
-        <p  class="p-3">${textArea.value}</p>
-        </div>
-        
-        <div class="d-flex gap-3 p-3"><button class="editBtn" onclick="editPost(event)">Edit</button>
-        <button class="delPost" id="del" onclick="deletePost(event)">Delete</button></div>
-        </div>
-        `
-        input.value=""
-        textArea.value=""
-        }
-        else if(input.value===""&&textArea.value){
+// function backgroundSelection(src,e){
+//     selectedBgSrc=src
+//     document.getElementById("chooseBg").innerHTML=`<img "${src}"alt="Selected Background" style="background-position:center; ">`
+// var images= document.getElementsByClassName("img")
+// for(var i=0 ;i<images.length;i++){
+// images[i].className+=" img"
+// e.target.className+=" border-effect"
+// } 
+// }
+// backgroundSelection()
+function backgroundSelection(src, e) {
+    selectedBgSrc = src;
+    document.getElementById("chooseBg").innerHTML = `<img src="${src}" alt="Selected Background" style="background-position:center;">`;
 
-            //condition dalni he
-        }
-
+    // Remove "border-effect" from all images
+    var images = document.getElementsByClassName("img");
+    for (var i = 0; i < images.length; i++) {
+        images[i].classList.remove("border-effect"); // Remove any existing border effect
     }
+
+    // Add "border-effect" class to the clicked image
+    e.target.classList.add("border-effect");
+}
+
+// Adding event listeners to each image
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.getElementsByClassName("img");
+    Array.from(images).forEach((img) => {
+        img.addEventListener('click', (event) => {
+            backgroundSelection(img.src, event); // Pass the image source and event
+        });
+    });
+});
+
+
        
-        
 function editPost(event){
     var editTitle = prompt("enter new title")
    
@@ -54,8 +61,64 @@ function deletePost(event){
 var parentNode = event.target.parentNode.parentNode
 parentNode.remove()
     }
+ // array of posts
+let allPosts= [];
+    let send = document.getElementById("send");
 
+    send.addEventListener('click', async () => {
 
+     function showPost(){
+            if(input.value&&textArea.value){
+                postDiv.innerHTML=`
+                <h1>Current Post</h1>
+                <div class="card my-2" style="background-image: url(${selectedBgSrc}); background-size:cover; background-repeat:no-repeat;background-position:center">
+                <div class="card-header">@Post</div>
+                <div>
+                <h1 class="p-3">${input.value}</h1>
+                <hr>
+                <p  class="p-3">${textArea.value}</p>
+                </div>
+                
+                <div class="d-flex gap-3 p-3"><button class="editBtn" onclick="editPost(event)">Edit</button>
+                <button class="delPost" id="del" onclick="deletePost(event)">Delete</button></div>
+                </div>
+                `
+                input.value=""
+                textArea.value=""
+                // showingprevious posts start
+                allPosts.push(postDiv.innerHTML)
+                console.log(allPosts)
+                let prePostBtn = document.getElementById('prePostBtn')
+                prePostBtn.addEventListener('click',async()=>{
+                    
+                    const querySnapshot = await getDocs(collection(db, "posts"));
+                    querySnapshot.forEach((doc) => {
+                      // doc.data() is never undefined for query doc snapshots
+                      console.log(doc.id, " => ", doc.data());
+                    //   document.getElementById('previous').innerHTML=doc.querySnapshot[1]
+                    });
+                })
+
+                // showingprevious posts finish
+                }
+                else if(input.value===""&&textArea.value){
+        
+                  alert('fill both fields')
+                }
+        
+            }
+   
+
+      let id = Math.random().toString();
+      console.log(id);
+  
+      await setDoc(doc(db, "posts", id), {
+        postTitle: input.value,
+        description: textArea.value,
+        createdAt: serverTimestamp()
+      });
+      showPost()
+    });
 
 
 
