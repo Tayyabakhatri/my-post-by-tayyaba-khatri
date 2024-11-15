@@ -4,22 +4,14 @@ import {
     doc,
     serverTimestamp,
     getDocs,
-    collection
+    collection,
+    query, 
+    where
   } from "./firebase.js"
 var postDiv = document.getElementById("show-post");
 var input = document.getElementById("title");
 var textArea=document.getElementById("description");
 var selectedBgSrc=""
-// function backgroundSelection(src,e){
-//     selectedBgSrc=src
-//     document.getElementById("chooseBg").innerHTML=`<img "${src}"alt="Selected Background" style="background-position:center; ">`
-// var images= document.getElementsByClassName("img")
-// for(var i=0 ;i<images.length;i++){
-// images[i].className+=" img"
-// e.target.className+=" border-effect"
-// } 
-// }
-// backgroundSelection()
 function backgroundSelection(src, e) {
     selectedBgSrc = src;
     document.getElementById("chooseBg").innerHTML = `<img src="${src}" alt="Selected Background" style="background-position:center;">`;
@@ -85,21 +77,50 @@ let allPosts= [];
                 `
                 input.value=""
                 textArea.value=""
+
+
+
                 // showingprevious posts start
                 allPosts.push(postDiv.innerHTML)
                 console.log(allPosts)
                 let prePostBtn = document.getElementById('prePostBtn')
+                // getting data 
                 prePostBtn.addEventListener('click',async()=>{
                     
                     const querySnapshot = await getDocs(collection(db, "posts"));
-                    querySnapshot.forEach((doc) => {
-                      // doc.data() is never undefined for query doc snapshots
-                      console.log(doc.id, " => ", doc.data());
-                    //   document.getElementById('previous').innerHTML=doc.querySnapshot[1]
+                    querySnapshot.forEach(async (doc) => {  // Make the callback async because 'getDocs' is asynchronous
+                        const data = doc.data();
+                    // console.log(doc.id);
+                    
+                        if (data.createdAt && data.createdAt.toDate) {
+                            let time = data.createdAt.toDate();
+                             let dateOfTheMonth = time.getDate() // Get the day of the month
+                    
+                            // const posts = collection(db, "posts");
+                            const postRef = collection(db, "posts",doc.id);
+                    // updating doc
+                            setDoc(postRef, { dateOfTheMonth: dateOfTheMonth}, { merge: true });
+                            // Create a query against the collection.
+                            const q = query(collection(db,"posts"),where("dateOfTheMonth" , "==","14"));
+                    
+                            // Await the result of the query
+                            const filterQuery = await getDocs(q);
+                    
+                            // Iterate through the filtered query snapshot
+                            filterQuery.forEach((qDoc) => {
+                                console.log(qDoc.id, " => ", qDoc.data());
+                            });
+                        } else {
+                            console.log("no match");
+                        }
                     });
+                    
+    
                 })
 
                 // showingprevious posts finish
+
+
                 }
                 else if(input.value===""&&textArea.value){
         
@@ -111,7 +132,7 @@ let allPosts= [];
 
       let id = Math.random().toString();
       console.log(id);
-  
+//   setting data in to doc
       await setDoc(doc(db, "posts", id), {
         postTitle: input.value,
         description: textArea.value,

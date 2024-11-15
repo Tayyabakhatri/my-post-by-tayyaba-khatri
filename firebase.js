@@ -1,7 +1,7 @@
 
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-  import {getFirestore,doc, setDoc,serverTimestamp,getDocs,collection } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+  import {getFirestore,doc, setDoc,serverTimestamp,getDocs,collection, query, where  } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyAvGFBbP_R95PBzLmRnpDUN9Z5i43c4_54",
@@ -17,4 +17,4 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Auth and Firestore
 const db = getFirestore(app);
-export{getFirestore,doc, setDoc,db,serverTimestamp,getDocs,collection}
+export{getFirestore,doc, setDoc,db,serverTimestamp,getDocs,collection,query, where}
