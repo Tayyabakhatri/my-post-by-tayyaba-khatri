@@ -11,6 +11,7 @@ import {
 var postDiv = document.getElementById("show-post");
 var input = document.getElementById("title");
 var textArea=document.getElementById("description");
+let age = document.getElementById('age')
 var selectedBgSrc=""
 function backgroundSelection(src, e) {
     selectedBgSrc = src;
@@ -60,7 +61,10 @@ let allPosts= [];
     send.addEventListener('click', async () => {
 
      function showPost(){
-            if(input.value&&textArea.value){
+        if(input.value==""||textArea.value==""){
+                  alert("both fields are required")
+        }
+           else if(input.value&&textArea.value){
                 postDiv.innerHTML=`
                 <h1>Current Post</h1>
                 <div class="card my-2" style="background-image: url(${selectedBgSrc}); background-size:cover; background-repeat:no-repeat;background-position:center">
@@ -96,12 +100,11 @@ let allPosts= [];
                             let time = data.createdAt.toDate();
                              let dateOfTheMonth = time.getDate() // Get the day of the month
                     
-                            // const posts = collection(db, "posts");
-                            const postRef = collection(db, "posts",doc.id);
+                             const postRef = collection(db, "posts",doc.id,doc.data())
                     // updating doc
-                            setDoc(postRef, { dateOfTheMonth: dateOfTheMonth}, { merge: true });
+                            // setDoc(postRef, { dateOfTheMonth: dateOfTheMonth}, { merge: true });
                             // Create a query against the collection.
-                            const q = query(collection(db,"posts"),where("dateOfTheMonth" , "==","14"));
+                            const q = query(collection(db,"posts"),where("age" , ">=","70"));
                     
                             // Await the result of the query
                             const filterQuery = await getDocs(q);
@@ -122,12 +125,8 @@ let allPosts= [];
 
 
                 }
-                else if(input.value===""&&textArea.value){
-        
-                  alert('fill both fields')
-                }
-        
             }
+        
    
 
       let id = Math.random().toString();
@@ -136,7 +135,8 @@ let allPosts= [];
       await setDoc(doc(db, "posts", id), {
         postTitle: input.value,
         description: textArea.value,
-        createdAt: serverTimestamp()
+        createdAt: serverTimestamp(),
+        age:age.value
       });
       showPost()
     });
