@@ -85,61 +85,62 @@ let allPosts= [];
 
 
                 // showingprevious posts start
-                allPosts.push(postDiv.innerHTML)
-                console.log(allPosts)
-                let prePostBtn = document.getElementById('prePostBtn')
-                // getting data 
-                prePostBtn.addEventListener('click',async()=>{
+            //     allPosts.push(postDiv.innerHTML)
+            //     console.log(allPosts)
+            //     let prePostBtn = document.getElementById('prePostBtn')
+            //     // getting data 
+            //     prePostBtn.addEventListener('click',async()=>{
                     
-                    const querySnapshot = await getDocs(collection(db, "posts"));
-                    querySnapshot.forEach(async (doc) => {  // Make the callback async because 'getDocs' is asynchronous
-                        const data = doc.data();
-                    // console.log(doc.id);
+            //         const querySnapshot = await getDocs(collection(db, "posts"));
+            //         querySnapshot.forEach(async (doc) => {  // Make the callback async because 'getDocs' is asynchronous
+            //             const data = doc.data();
+            //         // console.log(doc.id);
                     
-                        if (data.createdAt && data.createdAt.toDate) {
-                            let time = data.createdAt.toDate();
-                             let dateOfTheMonth = time.getDate() // Get the day of the month
+            //             if (data.createdAt && data.createdAt.toDate) {
+            //                 let time = data.createdAt.toDate();
+            //                  let dateOfTheMonth = time.getDate() // Get the day of the month
                     
-                             const postRef = collection(db, "posts",doc.id,doc.data())
-                    // updating doc
-                            // setDoc(postRef, { dateOfTheMonth: dateOfTheMonth}, { merge: true });
-                            // Create a query against the collection.
-                            const q = query(collection(db,"posts"),where("age" , ">=","70"));
+            //                  const postRef = collection(db, "posts",doc.id,doc.data())
+            //         // updating doc
+            //                 // setDoc(postRef, { dateOfTheMonth: dateOfTheMonth}, { merge: true });
+            //                 // Create a query against the collection.
+            //                 const q = query(collection(db,"posts"),where("age" , ">=","70"));
                     
-                            // Await the result of the query
-                            const filterQuery = await getDocs(q);
+            //                 // Await the result of the query
+            //                 const filterQuery = await getDocs(q);
                     
-                            // Iterate through the filtered query snapshot
-                            filterQuery.forEach((qDoc) => {
-                                console.log(qDoc.id, " => ", qDoc.data());
-                            });
-                        } else {
-                            console.log("no match");
-                        }
-                    });
+            //                 // Iterate through the filtered query snapshot
+            //                 filterQuery.forEach((qDoc) => {
+            //                     console.log(qDoc.id, " => ", qDoc.data());
+            //                 });
+            //             } else {
+            //                 console.log("no match");
+            //             }
+            //         });
                     
     
-                })
+            //     })
 
-                // showingprevious posts finish
+            //     // showingprevious posts finish
 
 
-                }
-            }
+            //     }
+            // }
         
    
 
       let id = Math.random().toString();
       console.log(id);
 //   setting data in to doc
-      await setDoc(doc(db, "posts", id), {
-        postTitle: input.value,
-        description: textArea.value,
-        createdAt: serverTimestamp(),
-        age:age.value
-      });
+    //   await setDoc(doc(db, "posts", id), {
+    //     postTitle: input.value,
+    //     description: textArea.value,
+    //     createdAt: serverTimestamp(),
+    //     age:age.value
+    //   });
       showPost()
-    });
+    })
+;
 
 
 
