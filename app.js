@@ -1,3 +1,8 @@
+import { getAuth, collection, getDocs, db, doc } from "./firebase.js"
+
+
+
+const auth = getAuth();
 var postDiv = document.getElementById("show-post");
 var input = document.getElementById("title");
 var textArea = document.getElementById("description");
@@ -74,3 +79,28 @@ send.addEventListener('click', async () => {
     }
     showPost()
 })
+// getting data
+const querySnapshot = await getDocs(collection(db, "users"));
+querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    let Auth = auth.currentUser
+    console.log(Auth);
+    if (Auth) {
+        const userImg = Auth.photoURL
+        const userName = Auth.displayName
+        const imgElement = document.createElement('img')
+        imgElement.setAttribute('src', userImg)
+        imgElement.setAttribute('alt', 'profile picture');
+        const nameElement = document.createElement('p')
+        nameElement.textContent = userName;
+        const divElement = document.createElement('div');
+        divElement.appendChild(nameElement)
+        let profile = document.getElementById('prfile');
+       profile.appendChild(divElement)
+    }
+    // console.log(doc.data());
+
+
+    console.log(doc.id, " => ", doc.data());
+    
+});

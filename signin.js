@@ -5,7 +5,7 @@ import {
     GoogleAuthProvider,
     provider,
     signInWithPopup,
-
+    collection,getDocs,db
 
 } from "./firebase.js"
 
@@ -14,7 +14,7 @@ let singinPassward = document.getElementById('signInpassward');
 let signInemail = document.getElementById('signInemail');
 let signIn = document.getElementById('signIn');
 
-signIn.addEventListener('click', (event) => {
+signIn.addEventListener('click', async(event) => {
     event.preventDefault()
     //validation for empty field
     if (signInemail.value == "" || singinPassward.value == "")
@@ -48,6 +48,9 @@ signIn.addEventListener('click', (event) => {
                 });
             });
 
+            
+
+
         //it will now redirect 
         window.location.href = "post.html"
     }
@@ -68,22 +71,7 @@ google.addEventListener('click', () => {
             const user = result.user;
             console.log(user)
             location.href = "post.html"
-            //on auth state change
-            let profile = document.getElementById('prfile');
 
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    console.log(user);
-                    const uid = user.uid;
-                    const user_img = user.photoURL
-                    profile.innerHTML = `
-        <img src=${user_img}>
-        <div>
-        <p>${user.displayName}</p>
-        </div>
-        `
-                }
-            });
 
         }).catch((error) => {
             // Handle Errors here.
@@ -110,20 +98,28 @@ google.addEventListener('click', () => {
 
 //on auth state change
 let profile = document.getElementById('prfile');
+if (profile) {
 
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        console.log(user);
-        const uid = user.uid;
-        const user_img = user.photoURL
-        profile.innerHTML = `
-        <img src=${user_img}>
-        <div>
-        <p>${user.displayName}</p>
-        </div>
-        `
-    }
-});
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            console.log(user);
+            const uid = user.uid;
+            const userImg = user.photoURL
+            const userName = user.displayName
+            const imgElement = document.createElement('img')
+            imgElement.setAttribute('src', userImg)
+            imgElement.setAttribute('alt', 'profile picture');
+            const nameElement = document.createElement('p')
+            nameElement.textContent = userName;
+            const divElement= document.createElement('div');
+            divElement.appendChild(nameElement)
+            console.log(uid);
+        }else{
+            console.log("no user is logged in ");
+            
+        }
+    });
+}
 
 //         // profile_img.src = user.photoURL
 //         // profile_name.innerHTML = user.displayName

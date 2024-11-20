@@ -60,8 +60,7 @@ signupBtn.addEventListener('click', (event) => {
                     createdAt: serverTimestamp()
 
                 });
-
-
+                
                 //firestore finish
 
                 // now it will redirect

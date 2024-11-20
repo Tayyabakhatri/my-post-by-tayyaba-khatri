@@ -10,7 +10,7 @@ import {
     signInWithPopup,
     
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-import { getFirestore, serverTimestamp ,setDoc,doc} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+import { getFirestore, serverTimestamp ,setDoc,doc,collection,getDocs} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -42,5 +42,6 @@ export {
     signInWithPopup,
     db,
     setDoc,
-    doc
+    doc,
+    collection,getDocs
 }
