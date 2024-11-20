@@ -3,7 +3,9 @@
    src: url(fonts/HTOWERT.TTF);
 }
 
-
+body{
+  background-color:#d9d9d9;
+}
 
 #title{
    width: 100%;
@@ -44,8 +46,13 @@ border: none;
    border: 1px solid black;
 }  
 #postMaking{
-   background-color:#54b0d49a;
+   background-color :#3e8f92 ;
 border: none;
 border-radius: 10px;
 }
-   
+#previous{
+  background-color: #e59494;
+}
+#send{
+  background-color: #e59494;
+}

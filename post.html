@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container d-flex justify-content-center p-3">
+        <div class="row m-2 ">
+            <div class="col-sm-12 col-md-6 border border-2 p-3 " id="postMaking">
+                <h1>Whats in your mind</h1>
+                <input type="text" name="post" id="title" placeholder="Title">
+                <hr>
+                <textarea name="post-description" id="description" placeholder="post description"></textarea>
+                <div class="container">
+                    <div id="chooseBg"></div>
+                    <h4>choose backgrpund</h4>
+                    <div class="row ">
+
+                        <img src="images/image copy 2.png" alt="" class="img-fluid m-sm-2 m-md-1 img ">
+                        <img src="images/image copy 3.png" alt="" class="img-fluid m-sm-2 m-md-1 img ">
+
+                        <img src="images/image copy 4.png" alt="" class="img-fluid m-sm-2 m-md-1 img">
+                        <img src="images/image copy 5.png" alt="" class="img-fluid m-sm-2 m-md-1 img">
+
+                        <img src="images/image copy 6.png" alt="" class="img-fluid m-sm-2 m-md-1 img">
+
+                        <img src="images/image.png" alt="" class="img-fluid m-sm-2 m-md-1 img">
+
+                        <img src="images/image copy 7.png" alt="" class="img-fluid m-sm-2 m-md-1 img">
+
+                        <img src="images/image copy.png" alt="" class="img-fluid  m-sm-2 m-md-1 img">
+
+
+                    </div>
+                </div>
+                <div class="d-flex ps-3 pt-3 gap-2">
+                    <button type="button" class="btn  btn-auto" id="send">Send</button>
+                    <button type="button" class="btn  btn-auto" id="previous">previous Posts</button>
+                </div>
+            </div>
+            <!-- previous post will show here
+            <div class="col-sm-12 col-md-6 border rounded p-3"> 
+                <h1>your All Post</h1>
+                <button type="button" id="prePostBtn" class="btn btn-primary btn-auto">Show previous Posts</button>
+                <div id="previous"></div>
+            </div> -->
+            <!-- // post will show here -->
+            <h1>Current Post</h1>
+            <div id="show-post"></div>
+        </div>
+    </div>
+    <script type="module" src="./firebase.js"></script>
+    <script type="module"  src="app.js"></script>
+  
+
+</body>
+
+</html>
