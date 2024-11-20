@@ -4,12 +4,13 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebas
 import {
     getAuth,
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword ,
-    onAuthStateChanged
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    GoogleAuthProvider,
+    signInWithPopup,
+    
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-//   import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore, serverTimestamp ,setDoc,doc} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -26,11 +27,20 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-//   const analytics = getAnalytics(app);
+const provider = new GoogleAuthProvider();
+const db = getFirestore(app);
 export {
     getAuth,
     auth,
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword ,
-    onAuthStateChanged
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    provider,
+    GoogleAuthProvider,
+    getFirestore,
+    serverTimestamp,
+    signInWithPopup,
+    db,
+    setDoc,
+    doc
 }

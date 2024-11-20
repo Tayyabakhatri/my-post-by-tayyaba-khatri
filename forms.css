@@ -1,54 +1,65 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-*{
+
+* {
   margin: 0;
   padding: 0;
   /* user-select: none; */
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
-html,body{
+
+html,
+body {
   height: 100%;
- 
+
 
 }
-body{
+
+body {
   display: grid;
   place-items: center;
   /* background: #dde1e7; */
   text-align: center;
   background-color: #3e8f92;
 }
-.content{
+
+.content {
   width: 330px;
   padding: 40px 30px;
   /* background: #dde1e7; */
-  background-color:#e59494 ;
+  background-color: #e59494;
   border-radius: 10px;
   box-shadow: -3px -3px 7px #ffffff73,
-               2px 2px 5px rgba(94,104,121,0.288);
+    2px 2px 5px rgba(94, 104, 121, 0.288);
 }
-.content .text{
+
+.content .text {
   font-size: 33px;
   font-weight: 600;
   margin-bottom: 35px;
   color: #595959;
 }
-.field{
+
+.field {
   height: 50px;
   width: 100%;
   display: flex;
   position: relative;
 }
-.field:nth-child(2){
+
+.field:nth-child(2) {
   margin-top: 20px;
 }
-.field:nth-child(3){
-   margin-top: 20px;
+
+.field:nth-child(3) {
+  margin-top: 20px;
 }
-.field:nth-child(4){
-   margin-top: 20px;
+
+.field:nth-child(4) {
+  margin-top: 20px;
 }
-.field input{
+
+.field input {
   height: 100%;
   width: 100%;
   padding-left: 45px;
@@ -59,19 +70,22 @@ body{
   color: #595959;
   border-radius: 25px;
   box-shadow: inset 2px 2px 5px #BABECC,
-              inset -5px -5px 10px #ffffff73;
+    inset -5px -5px 10px #ffffff73;
 }
-.field input:focus{
+
+.field input:focus {
   box-shadow: inset 1px 1px 2px #BABECC,
-              inset -1px -1px 2px #ffffff73;
+    inset -1px -1px 2px #ffffff73;
 }
-.field span{
+
+.field span {
   position: absolute;
   color: #595959;
   width: 50px;
   line-height: 50px;
 }
-.field label{
+
+.field label {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -79,22 +93,27 @@ body{
   pointer-events: none;
   color: #666666;
 }
-.field input:valid ~ label{
+
+.field input:valid~label {
   opacity: 0;
 }
-.forgot-pass{
+
+.forgot-pass {
   text-align: left;
   margin: 10px 0 10px 5px;
 }
-.forgot-pass a{
+
+.forgot-pass a {
   font-size: 16px;
   color: #3498db;
   text-decoration: none;
 }
-.forgot-pass:hover a{
+
+.forgot-pass:hover a {
   text-decoration: underline;
 }
-button{
+
+button {
   margin: 15px 0;
   width: 100%;
   height: 50px;
@@ -108,22 +127,55 @@ button{
   cursor: pointer;
   color: #595959;
   box-shadow: 2px 2px 5px #BABECC,
-             -5px -5px 10px #ffffff73;
+    -5px -5px 10px #ffffff73;
 }
-button:focus{
+
+button:focus {
   color: #3498db;
   box-shadow: inset 2px 2px 5px #BABECC,
-             inset -5px -5px 10px #ffffff73;
+    inset -5px -5px 10px #ffffff73;
 }
-.sign-up{
+
+.sign-up {
   margin: 10px 0;
   color: #595959;
   font-size: 16px;
 }
-.sign-up a{
+
+.sign-up a {
   color: #3498db;
   text-decoration: none;
 }
-.sign-up a:hover{
+
+.sign-up a:hover {
   text-decoration: underline;
+}
+
+/* google and apple btn */
+
+
+.login_option .option a img {
+  max-width: 25px;
+  background: #dde1e7;
+}
+
+.login_option .option a {
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border-radius:25px;
+  box-shadow: inset 2px 2px 5px #BABECC,
+    inset -5px -5px 10px #ffffff73;
+  background: #dde1e7;
+  border: 1px solid #DADAF2;
+  border-radius: 25px;
+  margin: 34px 0 24px 0;
+  text-decoration: none;
+  color: #171645;
+  font-weight: 500;
+  transition: 0.2s ease;
+  outline: none;
+  border: none;
 }
