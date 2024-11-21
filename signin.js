@@ -13,6 +13,9 @@ import {
 let singinPassward = document.getElementById('signInpassward');
 let signInemail = document.getElementById('signInemail');
 let signIn = document.getElementById('signIn');
+let profile = document.getElementById('profileDiv');
+console.log(profile);
+
 
 signIn.addEventListener('click', async (event) => {
     event.preventDefault()
@@ -31,9 +34,16 @@ signIn.addEventListener('click', async (event) => {
 
                 console.log(user)
                 let email = user.email
-                // let profile = document.getElementById('profile');
-                // profile.innerHTML = email
-                // Redirect after success
+                console.log(email);
+                
+                if (profile) {
+                    profile.innerHTML = `<p>${email}</p>`
+                } else {
+                    console.error("Profile element not found in the DOM.");
+                }
+
+
+               // Redirect after success
                 setTimeout(() => {
                     window.location.href = "post.html";
                 }, 3000);
@@ -58,39 +68,7 @@ signIn.addEventListener('click', async (event) => {
             text: "Fill all credentials",
         });
     }
-    //signing in the user 
-}
-
-)
-
-// // getting data
-// const querySnapshot = await getDocs(collection(db, "users"));
-// querySnapshot.forEach((doc) => {
-//     // doc.data() is never undefined for query doc snapshots
-//     let Auth = auth.currentUser
-//     console.log(Auth);
-//     // if (Auth) {
-//     //     const userImg = Auth.photoURL
-//     //     const userName = Auth.displayName
-//     //     const imgElement = document.createElement('img')
-//     //     imgElement.setAttribute('src', userImg)
-//     //     imgElement.setAttribute('alt', 'profile picture');
-//     //     const nameElement = document.createElement('p')
-//     //     nameElement.textContent = userName;
-//     //     const divElement = document.createElement('div');
-//     //     divElement.appendChild(nameElement)
-//     //     let profile = document.getElementById('prfile');
-//     //     profile.appendChild(divElement)
-//     // }
-//     console.log(doc.data());
-
-
-//     console.log(doc.id, " => ", doc.data());
-
-// });
-
-
-
+})
 
 //signing in with google functionality 
 let google = document.getElementById("googleBtn")
@@ -131,7 +109,7 @@ google.addEventListener('click', () => {
 
 
 //on auth state change
-let profile = document.getElementById('prfile');
+// let profile = document.getElementById('prfile');
 if (profile) {
 
     onAuthStateChanged(auth, (user) => {

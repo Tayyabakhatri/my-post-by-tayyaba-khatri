@@ -8,9 +8,10 @@ import {
     onAuthStateChanged,
     GoogleAuthProvider,
     signInWithPopup,
+   
 
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-import { getFirestore, serverTimestamp, setDoc, doc, collection, getDocs, where, query,getDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+import { getFirestore, serverTimestamp, setDoc, doc, collection, getDocs, where, query, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -45,5 +46,6 @@ export {
     doc,
     where, query
     , collection, getDocs
-    ,getDoc
+    , getDoc,
+    updateDoc
 }
