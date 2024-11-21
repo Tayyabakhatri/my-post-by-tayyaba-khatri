@@ -5,7 +5,7 @@ import {
     GoogleAuthProvider,
     provider,
     signInWithPopup,
-    collection,getDocs,db
+    collection, getDocs, db
 
 } from "./firebase.js"
 
@@ -14,47 +14,81 @@ let singinPassward = document.getElementById('signInpassward');
 let signInemail = document.getElementById('signInemail');
 let signIn = document.getElementById('signIn');
 
-signIn.addEventListener('click', async(event) => {
+signIn.addEventListener('click', async (event) => {
     event.preventDefault()
     //validation for empty field
-    if (signInemail.value == "" || singinPassward.value == "")
-        Swal.fire({
-            position: "top-end",
-            icon: "error",
-            title: "enter your all credentials",
-            showConfirmButton: false,
-            timer: 1500
-        });
-    //signing in the user 
-
-    else if (signInemail.value && singinPassward.value) {
+    if (signInemail.value && singinPassward.value)
         signInWithEmailAndPassword(auth, signInemail.value, singinPassward.value)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                console.log("signed in successfully");
+
+                swal({
+                    title: "Sweet!",
+                    text: "Here's a custom image.",
+                    imageUrl: "images/golden-thumbs-up-e1K4DJ5-600.jpg"
+                });
+
+                console.log(user)
+                let email = user.email
+                // let profile = document.getElementById('profile');
+                // profile.innerHTML = email
+                // Redirect after success
+                setTimeout(() => {
+                    window.location.href = "post.html";
+                }, 3000);
 
             })
             .catch((error) => {
                 const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode)
-                Swal.fire({
-                    position: "top-end",
-                    icon: "error",
-                    title: "ERROR : " + errorMessage,
-                    showConfirmButton: false,
-                    timer: 1500
-                });
+                const errorMessage = "An error occurred. Please try again." + error.message
+
+                if (errorCode === "auth/wrong-password") {
+                    errorMessage = "Incorrect password.";
+                } else if (errorCode === "auth/user-not-found") {
+                    errorMessage = "No user found with this email.";
+                }
+
+                swal(errorMessage)
             });
 
-            
-
-
-        //it will now redirect 
-        window.location.href = "post.html"
+    else if (signInemail.value == "" || singinPassward.value == "") {
+        swal({
+            title: "ERROR",
+            text: "Fill all credentials",
+        });
     }
-})
+    //signing in the user 
+}
+
+)
+
+// // getting data
+// const querySnapshot = await getDocs(collection(db, "users"));
+// querySnapshot.forEach((doc) => {
+//     // doc.data() is never undefined for query doc snapshots
+//     let Auth = auth.currentUser
+//     console.log(Auth);
+//     // if (Auth) {
+//     //     const userImg = Auth.photoURL
+//     //     const userName = Auth.displayName
+//     //     const imgElement = document.createElement('img')
+//     //     imgElement.setAttribute('src', userImg)
+//     //     imgElement.setAttribute('alt', 'profile picture');
+//     //     const nameElement = document.createElement('p')
+//     //     nameElement.textContent = userName;
+//     //     const divElement = document.createElement('div');
+//     //     divElement.appendChild(nameElement)
+//     //     let profile = document.getElementById('prfile');
+//     //     profile.appendChild(divElement)
+//     // }
+//     console.log(doc.data());
+
+
+//     console.log(doc.id, " => ", doc.data());
+
+// });
+
 
 
 
@@ -111,22 +145,16 @@ if (profile) {
             imgElement.setAttribute('alt', 'profile picture');
             const nameElement = document.createElement('p')
             nameElement.textContent = userName;
-            const divElement= document.createElement('div');
+            const divElement = document.createElement('div');
             divElement.appendChild(nameElement)
             console.log(uid);
-        }else{
+        } else {
             console.log("no user is logged in ");
-            
+
         }
     });
 }
 
-//         // profile_img.src = user.photoURL
-//         // profile_name.innerHTML = user.displayName
-//         // user_email.innerHTML = user.email
-//         // ...
-//     } else {
-//         console.log("errror");
 
 
 

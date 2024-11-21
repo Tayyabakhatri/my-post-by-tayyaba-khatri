@@ -13,8 +13,8 @@ let city = document.getElementById('city');
 let passward = document.getElementById('passward');
 let email = document.getElementById('email');
 let signupBtn = document.getElementById('signUp');
+let name = document.getElementById('name')
 const auth = getAuth();
-// const db = getFirestore(app);
 signupBtn.addEventListener('click', (event) => {
     event.preventDefault()
 
@@ -57,10 +57,12 @@ signupBtn.addEventListener('click', (event) => {
                 await setDoc(doc(db, "users", user.uid), {
                     user_city: city.value,
                     user_age: age.value,
-                    createdAt: serverTimestamp()
+                    createdAt: serverTimestamp(),
+                    name: name.value
 
                 });
                 
+
                 //firestore finish
 
                 // now it will redirect
@@ -80,3 +82,4 @@ signupBtn.addEventListener('click', (event) => {
                 });
             });
 })
+

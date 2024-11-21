@@ -1,12 +1,14 @@
-import { getAuth, collection, getDocs, db, doc } from "./firebase.js"
+import { getAuth, collection, getDocs, db, doc, setDoc, where, query ,getDoc} from "./firebase.js"
 
 
 
 const auth = getAuth();
+
 var postDiv = document.getElementById("show-post");
 var input = document.getElementById("title");
 var textArea = document.getElementById("description");
-let age = document.getElementById('age')
+let previousBtn = document.getElementById('previous')
+
 var selectedBgSrc = ""
 function backgroundSelection(src, e) {
     selectedBgSrc = src;
@@ -36,7 +38,7 @@ let send = document.getElementById("send");
 
 send.addEventListener('click', async () => {
 
-    function showPost() {
+    async function showPost() {
         if (input.value == "" || textArea.value == "") {
             alert("both fields are required")
         }
@@ -55,6 +57,16 @@ send.addEventListener('click', async () => {
                 <button class="delPost" id="del">Delete</button></div>
                 </div>
                 `
+            //setting docs for posts
+            let Auth = auth.currentUser
+            console.log(Auth);
+            let id = Auth.uid
+            await setDoc(doc(db, "posts", id), {
+                Title: input.value,
+                post: textArea.value
+
+            });
+            //setting docs finish
             input.value = ""
             textArea.value = ""
 
@@ -79,28 +91,76 @@ send.addEventListener('click', async () => {
     }
     showPost()
 })
-// getting data
-const querySnapshot = await getDocs(collection(db, "users"));
-querySnapshot.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
+previousBtn.addEventListener('click', async () => {
     let Auth = auth.currentUser
-    console.log(Auth);
-    if (Auth) {
-        const userImg = Auth.photoURL
-        const userName = Auth.displayName
-        const imgElement = document.createElement('img')
-        imgElement.setAttribute('src', userImg)
-        imgElement.setAttribute('alt', 'profile picture');
-        const nameElement = document.createElement('p')
-        nameElement.textContent = userName;
-        const divElement = document.createElement('div');
-        divElement.appendChild(nameElement)
-        let profile = document.getElementById('prfile');
-       profile.appendChild(divElement)
-    }
-    // console.log(doc.data());
-
-
-    console.log(doc.id, " => ", doc.data());
+    let id = Auth.uid
+    // console.log(Auth);
+    const docRef = doc(db, "posts",id);
+    const docSnap = await getDoc(docRef);
     
+    if (docSnap.exists()) {
+        const docData= docSnap.data()
+        console.log(docData.Title);
+        
+        console.log("Document data:", docSnap.data());
+        const q = query(collection(db, "posts"), where("uid", "==", id));
+    
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+            let data = doc.data()
+            console.log(data);
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+        });
+    } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+    }
 });
+
+// Add a new post
+// chat gpt
+const addPost = async (postContent, userId) => {
+    try {
+        await addDoc(collection(db, "posts"), {
+            uid: userId,
+            content: postContent,
+            timestamp: serverTimestamp(),
+        });
+        console.log("Post added successfully!");
+    } catch (error) {
+        console.error("Error adding post:", error);
+    }
+};
+
+
+
+
+
+
+
+// getting data
+// const querySnapshot = await getDocs(collection(db, "users"));
+// querySnapshot.forEach((doc) => {
+//     // doc.data() is never undefined for query doc snapshots
+//     let Auth = auth.currentUser
+//     console.log(Auth);
+//     // if (Auth) {
+//     //     const userImg = Auth.photoURL
+//     //     const userName = Auth.displayName
+//     //     const imgElement = document.createElement('img')
+//     //     imgElement.setAttribute('src', userImg)
+//     //     imgElement.setAttribute('alt', 'profile picture');
+//     //     const nameElement = document.createElement('p')
+//     //     nameElement.textContent = userName;
+//     //     const divElement = document.createElement('div');
+//     //     divElement.appendChild(nameElement)
+//     //     let profile = document.getElementById('prfile');
+//     //     profile.appendChild(divElement)
+//     // }
+//     console.log(doc.data());
+
+
+//     console.log(doc.id, " => ", doc.data());
+
+// });
