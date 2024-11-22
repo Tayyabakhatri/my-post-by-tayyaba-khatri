@@ -7,7 +7,9 @@ const auth = getAuth();
 var postDiv = document.getElementById("show-post");
 var input = document.getElementById("title");
 var textArea = document.getElementById("description");
-let previousBtn = document.getElementById('previous')
+let previousBtn = document.getElementById('previous');
+
+
 
 var selectedBgSrc = ""
 function backgroundSelection(src, e) {
@@ -37,7 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
 let send = document.getElementById("send");
 
 send.addEventListener('click', async () => {
-
+    let Auth = auth.currentUser
+    let email = Auth.email
+    let name = Auth.displayName
     async function showPost() {
         if (input.value == "" || textArea.value == "") {
             alert("both fields are required")
@@ -47,6 +51,9 @@ send.addEventListener('click', async () => {
               
                 <div class="card my-2" style="background-image: url(${selectedBgSrc}); background-size:cover; background-repeat:no-repeat;background-position:center">
                 <div class="card-header">@Post</div>
+                <div class="p-3">${email}
+                <p class="fw-bold">${name}</p>
+                </div>
                 <div>
                 <h1 class="p-3">${input.value}</h1>
                 <hr>
@@ -57,8 +64,19 @@ send.addEventListener('click', async () => {
                 <button class="delPost" id="del">Delete</button></div>
                 </div>
                 `
+        
+            //setting email in the field
+            
+            
+            let profile = document.getElementById('profile');
+            if (profile) {
+                profile.innerHTML = `<p>${email}</p>`
+            } else {
+                console.error("Profile element not found in the DOM.");
+            }
+
             //setting docs for posts
-            let Auth = auth.currentUser
+            
             console.log(Auth);
             let id = Auth.uid
             await setDoc(doc(db, "posts", id), {
@@ -99,6 +117,9 @@ send.addEventListener('click', async () => {
     }
     showPost()
 })
+
+
+
 previousBtn.addEventListener('click', async () => {
     let Auth = auth.currentUser
     let id = Auth.uid
@@ -120,10 +141,10 @@ previousBtn.addEventListener('click', async () => {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
         });
-        let timeStamp = docData.timestamp. toDate()
+        let timeStamp = docData.timestamp.toDate()
         let time = timeStamp.toTimeString().split(' ')[0]
-        
-        
+
+
         let previousPost = document.getElementById('previousPost')
         previousPost.innerHTML = ` <div class="card my-2" style="background-image: url(${selectedBgSrc}); background-size:cover; background-repeat:no-repeat;background-position:center">
                 <div class="card-header">@Post</div>

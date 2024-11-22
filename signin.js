@@ -13,7 +13,7 @@ import {
 let singinPassward = document.getElementById('signInpassward');
 let signInemail = document.getElementById('signInemail');
 let signIn = document.getElementById('signIn');
-let profile = document.getElementById('profileDiv');
+let profile = document.getElementById('profile');
 console.log(profile);
 
 
