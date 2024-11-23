@@ -18,11 +18,17 @@
     <div class="container d-flex justify-content-center p-3">
         <div class="row m-2 ">
             <div class="col-sm-12 col-md-6 border border-2 p-3 " id="postMaking">
-                <input type="file" id="file">
-                <div id="gallery"></div>
-                <!-- <div id="dropArea" style="width: 75px; height: 75px;"></div> -->
                 
-                <div id="profile"></div>
+
+
+                <div id="profile" class="d-flex">
+                    <div id="gallery" class="me-4"></div>
+                    <!-- <img src="images/apple.png" alt="" id="image" style="width: 50px; height: 50px;" class=""> -->
+                    <div>
+                        <p id="user_email" class="m-0 text-white">dsss</p>
+                        <p id="name" class="text-white">ttt</p>
+                    </div>
+                </div>
                 <h1>Whats in your mind</h1>
                 <input type="text" name="post" id="title" placeholder="Title">
                 <hr>
@@ -54,12 +60,12 @@
                     <button type="button" class="btn  btn-auto" id="previous">previous Posts</button>
                 </div>
             </div>
-             <!-- previous post will show here -->
-            <div class="col-sm-12 col-md-6 border rounded p-3"> 
+            <!-- previous post will show here -->
+            <div class="col-sm-12 col-md-6 border rounded p-3">
                 <h1>your All Post</h1>
-               
+
                 <div id="previousPost"></div>
-            </div> 
+            </div>
             <!-- // post will show here -->
             <h1>Current Post</h1>
             <div id="show-post"></div>
@@ -67,10 +73,10 @@
     </div>
     <script type="module" src="./firebase.js"></script>
     <script src="cloudinary.js"></script>
-    <script type="module"  src="app.js"></script>
+    <script type="module" src="app.js"></script>
     <script type="module" src="signin.js"></script>
     <script type="module" src="signup.js"></script>
-  
+
 
 </body>
 

@@ -167,4 +167,4 @@ function pictureFun() {
 //     }).then((response) => {
 //         if (!response.ok) {
 //             throw new Error("Failed to upload to Cloudinary");
-       
+      //} 

@@ -64,10 +64,10 @@ send.addEventListener('click', async () => {
                 <button class="delPost" id="del">Delete</button></div>
                 </div>
                 `
-        
+
             //setting email in the field
-            
-            
+
+
             let profile = document.getElementById('profile');
             if (profile) {
                 profile.innerHTML = `<p>${email}</p>`
@@ -76,7 +76,7 @@ send.addEventListener('click', async () => {
             }
 
             //setting docs for posts
-            
+
             console.log(Auth);
             let id = Auth.uid
             await setDoc(doc(db, "posts", id), {
@@ -159,19 +159,19 @@ previousBtn.addEventListener('click', async () => {
         console.log("No such document!");
     }
 });
-
-
-// Add a new post
-// chat gpt
-const addPost = async (postContent, userId) => {
-    try {
-        await addDoc(collection(db, "posts"), {
-            uid: userId,
-            content: postContent,
-            timestamp: serverTimestamp(),
-        });
-        console.log("Post added successfully!");
-    } catch (error) {
-        console.error("Error adding post:", error);
+//on auth state change
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        console.log(user)
+        user.providerData.forEach((profile) => {
+            console.log("Sign-in provider: " + profile.providerId);
+            console.log("  Provider-specific UID: " + profile.uid);
+            console.log("  Name: " + profile.displayName);
+            console.log("  Email: " + profile.email);
+            console.log("  Photo URL: " + profile.photoURL);
+        })
+        image.src = user.photoURL
+        profile_email.innerHTML = user.email
+        name.innerHTML = user.displayName
     }
-};
+})

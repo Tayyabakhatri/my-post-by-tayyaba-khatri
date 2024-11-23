@@ -13,6 +13,9 @@ import {
 let singinPassward = document.getElementById('signInpassward');
 let signInemail = document.getElementById('signInemail');
 let signIn = document.getElementById('signIn');
+let image = document.getElementById('image')
+let profile_email= document.getElementById('user_email');
+let name= document.getElementById('name')
 let profile = document.getElementById('profile');
 console.log(profile);
 
@@ -108,30 +111,6 @@ google.addEventListener('click', () => {
 
 
 
-//on auth state change
-// let profile = document.getElementById('prfile');
-if (profile) {
-
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            console.log(user);
-            const uid = user.uid;
-            const userImg = user.photoURL
-            const userName = user.displayName
-            const imgElement = document.createElement('img')
-            imgElement.setAttribute('src', userImg)
-            imgElement.setAttribute('alt', 'profile picture');
-            const nameElement = document.createElement('p')
-            nameElement.textContent = userName;
-            const divElement = document.createElement('div');
-            divElement.appendChild(nameElement)
-            console.log(uid);
-        } else {
-            console.log("no user is logged in ");
-
-        }
-    });
-}
 
 
 
