@@ -128,6 +128,15 @@ previousBtn.addEventListener('click', async () => {
     // console.log(Auth);
     const docRef = doc(db, "posts", id);
     const docSnap = await getDoc(docRef);
+//     const docRef = doc(db, "cities", "SF");
+// const docSnap = await getDoc(docRef);
+
+if (docSnap.exists()) {
+  console.log("Document data:", docSnap.data());
+} else {
+  // docSnap.data() will be undefined in this case
+  console.log("No such document!");
+}
 
     if (docSnap.exists()) {
         const docData = docSnap.data()
