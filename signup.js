@@ -69,7 +69,7 @@ signupBtn.addEventListener('click', (event) => {
                 // now it will redirect
                 setTimeout(() => {
                     location.href = "signin.html"
-                }, 3000)
+                }, 2000)
             })
 
             .catch((error) => {
