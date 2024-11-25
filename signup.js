@@ -58,10 +58,11 @@ signupBtn.addEventListener('click', (event) => {
                     user_city: city.value,
                     user_age: age.value,
                     createdAt: serverTimestamp(),
-                    name: name.value
+                    name: name.value,
+                    id: user.uid
 
                 });
-                
+
 
                 //firestore finish
 
