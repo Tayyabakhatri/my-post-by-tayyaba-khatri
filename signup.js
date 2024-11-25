@@ -58,7 +58,7 @@ signupBtn.addEventListener('click', (event) => {
                     user_city: city.value,
                     user_age: age.value,
                     createdAt: serverTimestamp(),
-                    name: name.value,
+                    name: user.displayName,
                     id: user.uid
 
                 });
