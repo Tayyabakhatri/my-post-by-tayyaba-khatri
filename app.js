@@ -42,6 +42,8 @@ send.addEventListener('click', async () => {
     let Auth = auth.currentUser
     let email = Auth.email
     let name = Auth.displayName
+    console.log(name);
+    
     async function showPost() {
         if (input.value == "" || textArea.value == "") {
             alert("both fields are required")
@@ -132,7 +134,7 @@ previousBtn.addEventListener('click', async () => {
         console.log(docData.Title);
 
         console.log("Document data:", docSnap.data());
-        const q = query(collection(db, "posts"), where("uid", "==", id));
+        const q = query(collection(db, "posts"), where("id", "==", id));
 
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
@@ -158,6 +160,16 @@ previousBtn.addEventListener('click', async () => {
         // docSnap.data() will be undefined in this case
         console.log("No such document!");
     }
+});
+
+const q = query(collection(db, "posts"), where("id", "==", id));
+
+const querySnapshot = await getDocs(q);
+querySnapshot.forEach((doc) => {
+    let data = doc.data()
+    console.log(data);
+    // doc.data() is never undefined for query doc snapshots
+    console.log(doc.id, " => ", doc.data());
 });
 //on auth state change
 onAuthStateChanged(auth, (user) => {
