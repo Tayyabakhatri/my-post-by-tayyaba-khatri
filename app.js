@@ -1,8 +1,24 @@
-import { getAuth, collection, getDocs, db, doc, setDoc, where, query, getDoc, serverTimestamp, updateDoc } from "./firebase.js"
+import { getAuth, collection, getDocs, db, doc, addDoc, where, query, getDoc, serverTimestamp, onAuthStateChanged, orderBy } from "./firebase.js"
 
 
 
 const auth = getAuth();
+//on auth state change
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        console.log(user)
+        user.providerData.forEach((profile) => {
+            console.log("Sign-in provider: " + profile.providerId);
+            console.log("  Provider-specific UID: " + profile.uid);
+            console.log("  Name: " + profile.displayName);
+            console.log("  Email: " + profile.email);
+            console.log("  Photo URL: " + profile.photoURL);
+        })
+        image.src = user.photoURL
+        profile_email.innerHTML = user.email
+        name.innerHTML = user.displayName
+    }
+})
 
 var postDiv = document.getElementById("show-post");
 var input = document.getElementById("title");
@@ -43,7 +59,7 @@ send.addEventListener('click', async () => {
     let email = Auth.email
     let name = Auth.displayName
     console.log(name);
-    
+
     async function showPost() {
         if (input.value == "" || textArea.value == "") {
             alert("both fields are required")
@@ -81,19 +97,13 @@ send.addEventListener('click', async () => {
 
             console.log(Auth);
             let id = Auth.uid
-            await setDoc(doc(db, "posts", id), {
-                Title: input.value,
-                post: textArea.value,
+            const posts = await addDoc(collection(db, "posts"), {
+                post_title: input.value,
+                discription: textArea.value,
+                createdAt: serverTimestamp(),
+                id: id
             });
-
-            //update function
-            const docRef = doc(db, 'posts', id);
-
-            // Update the timestamp field with the value from the server
-            const updateTimestamp = await updateDoc(docRef, {
-                timestamp: serverTimestamp()
-            });
-
+            console.log("Document written with ID: ", posts.id);
             //setting docs finish
             input.value = ""
             textArea.value = ""
@@ -119,80 +129,162 @@ send.addEventListener('click', async () => {
     }
     showPost()
 })
+//
+// async function getPostsOfCurrentUser(userId) {
+//     try {
+//         const postRef = collection(db, "posts")
+//         const q = query(postRef, where('id', '==', userId), orderBy('createdAt', 'desc'))
+//         const querySnapshot = await getDocs(q);
+//         const postArry = []
+//         querySnapshot.forEach((doc) => {
+//             postArry.push({ id: doc.id, ...doc.data() })
+//             console.log(doc.id, " => ", doc.data());
+//             console.log("User's Posts:", postArry);
+//         });
+//         return postArry
+//     } catch (error) {
+//         console.log('error:', error.message);
+
+//     }
+// }
+
+
+// previousBtn.addEventListener('click', async () => {
+//     let Auth = auth.currentUser
+//     let id = Auth.uid
+//     const posts = await getPostsOfCurrentUser(id)
+//     let previousPost = document.getElementById('previousPost')
+//     if (posts) {
+//         posts.forEach((post) => {
+//             previousPost.innerHTML += ` <div class="card my-2" style="background-image: url(${selectedBgSrc}); background-size:cover; background-repeat:no-repeat;background-position:center">
+//         <div class="card-header">@Post</div>
+//         <p class="p-3">${post.time}</p>
+//         <div>
+//         <h1 class="p-3">${post.Title}</h1>
+//         <hr>
+//         <p  class="p-3">${post.post}</p>
+//         </div>`
+//         })
+//     }else {
+//         previousPost.innerHTML = "<p>No posts found for this user.</p>";
+//     }
 
 
 
-previousBtn.addEventListener('click', async () => {
-    let Auth = auth.currentUser
-    let id = Auth.uid
-    // console.log(Auth);
-    const docRef = doc(db, "posts", id);
-    const docSnap = await getDoc(docRef);
-//     const docRef = doc(db, "cities", "SF");
-// const docSnap = await getDoc(docRef);
 
-if (docSnap.exists()) {
-  console.log("Document data:", docSnap.data());
-} else {
-  // docSnap.data() will be undefined in this case
-  console.log("No such document!");
-}
+   
 
-    if (docSnap.exists()) {
-        const docData = docSnap.data()
-        console.log(docData.Title);
 
-        console.log("Document data:", docSnap.data());
-        const q = query(collection(db, "posts"), where("id", "==", id));
+    // getting all data
+    // try {
+    //     const querySnapshot = await getDocs(collection(db, "posts"));
+    //     querySnapshot.forEach((doc) => {
+    //         // doc.data() is never undefined for query doc snapshots
+    //         console.log(doc.id, " => ", doc.data());
+    //     });
+    // } catch (e) {
+    //     console.log(e)
+    // }
+    // const q = query(collection(db, "posts"), where("id", "==", id));
 
+    // const querySnapshot = await getDocs(q);
+    // querySnapshot.forEach((doc) => {
+    //     let data = doc.data()
+    //     console.log(data);
+    //     // doc.data() is never undefined for query doc snapshots
+    //     console.log(doc.id, " => ", doc.data());
+    // });
+    // const docRef = doc(db, "posts", id);
+    // const docSnap = await getDoc(docRef);
+
+    // if (docSnap.exists()) {
+    //     console.log("Document data:", docSnap.data());
+    // } else {
+    //     // docSnap.data() will be undefined in this case
+    //     console.log("No such document!");
+    // }
+
+    // if (docSnap.exists()) {
+    //     const docData = docSnap.data()
+    //     console.log(docData.Title);
+
+    //     console.log("Document data:", docSnap.data());
+
+    //     let timeStamp = docData.timestamp.toDate()
+    //     let time = timeStamp.toTimeString().split(' ')[0]
+
+
+    //     let previousPost = document.getElementById('previousPost')
+    //     previousPost.innerHTML = ` <div class="card my-2" style="background-image: url(${selectedBgSrc}); background-size:cover; background-repeat:no-repeat;background-position:center">
+    //             <div class="card-header">@Post</div>
+    //             <p class="p-3">${time}</p>
+    //             <div>
+    //             <h1 class="p-3">${docData.Title}</h1>
+    //             <hr>
+    //             <p  class="p-3">${docData.post}</p>
+    //             </div>`
+    // } else {
+    //     // docSnap.data() will be undefined in this case
+    //     console.log("No such document!");
+    // }
+// });
+
+//on auth state change
+// onAuthStateChanged(auth, (user) => {
+//     if (user) {
+//         console.log(user)
+//         user.providerData.forEach((profile) => {
+//             console.log("Sign-in provider: " + profile.providerId);
+//             console.log("  Provider-specific UID: " + profile.uid);
+//             console.log("  Name: " + profile.displayName);
+//             console.log("  Email: " + profile.email);
+//             console.log("  Photo URL: " + profile.photoURL);
+//         })
+//         image.src = user.photoURL
+//         profile_email.innerHTML = user.email
+//         name.innerHTML = user.displayName
+//     }
+// })
+
+async function getPostsOfCurrentUser(userId) {
+    try {
+        const postRef = collection(db, "posts");
+        const q = query(postRef, where("id", "==", userId));
         const querySnapshot = await getDocs(q);
+        const postArry = [];
+
         querySnapshot.forEach((doc) => {
-            let data = doc.data()
-            console.log(data);
-            // doc.data() is never undefined for query doc snapshots
+            postArry.push({ id: doc.id, ...doc.data() });
             console.log(doc.id, " => ", doc.data());
         });
-        let timeStamp = docData.timestamp.toDate()
-        let time = timeStamp.toTimeString().split(' ')[0]
 
+        return postArry; // Return posts array after loop
+    } catch (error) {
+        console.error("Error fetching posts:", error.message);
+    }
+}
 
-        let previousPost = document.getElementById('previousPost')
-        previousPost.innerHTML = ` <div class="card my-2" style="background-image: url(${selectedBgSrc}); background-size:cover; background-repeat:no-repeat;background-position:center">
-                <div class="card-header">@Post</div>
-                <p class="p-3">${time}</p>
-                <div>
-                <h1 class="p-3">${docData.Title}</h1>
-                <hr>
-                <p  class="p-3">${docData.post}</p>
-                </div>`
+previousBtn.addEventListener("click", async () => {
+    let Auth = auth.currentUser;
+    let id = Auth.uid;
+    const posts = await getPostsOfCurrentUser(id);
+    let previousPost = document.getElementById("previousPost");
+    previousPost.innerHTML = ""; // Clear previous content
+
+    if (posts) {
+        posts.forEach((post) => {
+            previousPost.innerHTML += `
+      <div class="card my-2" style="background-image: url(${selectedBgSrc}); background-size: cover; background-repeat: no-repeat; background-position: center;">
+        <div class="card-header">@Post</div>
+        <p class="p-3">${post.createdAt.toDate() || "No Time Provided"}</p>
+        <div>
+          <h1 class="p-3">${post.post_title || "No Title"}</h1>
+          <hr>
+          <p class="p-3">${post.discription|| "No Content"}</p>
+        </div>
+      </div>`;
+        });
     } else {
-        // docSnap.data() will be undefined in this case
-        console.log("No such document!");
+        previousPost.innerHTML = "<p>No posts found for this user.</p>";
     }
 });
-
-const q = query(collection(db, "posts"), where("id", "==", id));
-
-const querySnapshot = await getDocs(q);
-querySnapshot.forEach((doc) => {
-    let data = doc.data()
-    console.log(data);
-    // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, " => ", doc.data());
-});
-//on auth state change
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        console.log(user)
-        user.providerData.forEach((profile) => {
-            console.log("Sign-in provider: " + profile.providerId);
-            console.log("  Provider-specific UID: " + profile.uid);
-            console.log("  Name: " + profile.displayName);
-            console.log("  Email: " + profile.email);
-            console.log("  Photo URL: " + profile.photoURL);
-        })
-        image.src = user.photoURL
-        profile_email.innerHTML = user.email
-        name.innerHTML = user.displayName
-    }
-})

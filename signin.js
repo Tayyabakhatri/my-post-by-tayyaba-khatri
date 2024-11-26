@@ -5,7 +5,8 @@ import {
     GoogleAuthProvider,
     provider,
     signInWithPopup,
-    collection, getDocs, db
+    collection, getDocs, db,
+    addDoc
 
 } from "./firebase.js"
 

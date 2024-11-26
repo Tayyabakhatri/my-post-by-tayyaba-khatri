@@ -5,7 +5,9 @@ import {
     serverTimestamp,
     db,
     setDoc,
-    doc
+    doc,
+    addDoc,
+    collection
 } from "./firebase.js"
 
 let age = document.getElementById('age');
@@ -54,14 +56,14 @@ signupBtn.addEventListener('click', (event) => {
                 })
                 //firestore
                 //adding docs
-                await setDoc(doc(db, "users", user.uid), {
+                const docRef = await addDoc(collection(db, "users"), {
                     user_city: city.value,
                     user_age: age.value,
                     createdAt: serverTimestamp(),
                     name: name.value,
                     id: user.uid
-
-                });
+                  });
+                  console.log("Document written with ID: ", docRef.id);
 
 
                 //firestore finish

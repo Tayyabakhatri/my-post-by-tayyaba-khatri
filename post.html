@@ -17,8 +17,8 @@
 <body>
     <div class="container d-flex justify-content-center p-3">
         <div class="row m-2 ">
-            <div class="col-sm-12 col-md-6 border border-2 p-3 " id="postMaking">
-                
+            <div class="col border border-2 p-3 " id="postMaking">
+
 
 
                 <div id="profile" class="d-flex">
@@ -59,16 +59,18 @@
                     <button type="button" class="btn  btn-auto" id="send">Send</button>
                     <button type="button" class="btn  btn-auto" id="previous">previous Posts</button>
                 </div>
+                <h1>Current Post</h1>
+                <div id="show-post"></div>
             </div>
             <!-- previous post will show here -->
-            <div class="col-sm-12 col-md-6 border rounded p-3">
+            <div class="col border rounded p-3">
                 <h1>your All Post</h1>
 
                 <div id="previousPost"></div>
             </div>
             <!-- // post will show here -->
-            <h1>Current Post</h1>
-            <div id="show-post"></div>
+            <!-- <h1>Current Post</h1>
+            <div id="show-post"></div> -->
         </div>
     </div>
     <script type="module" src="./firebase.js"></script>
