@@ -129,51 +129,6 @@ send.addEventListener('click', async () => {
     }
     showPost()
 })
-//
-// async function getPostsOfCurrentUser(userId) {
-//     try {
-//         const postRef = collection(db, "posts")
-//         const q = query(postRef, where('id', '==', userId), orderBy('createdAt', 'desc'))
-//         const querySnapshot = await getDocs(q);
-//         const postArry = []
-//         querySnapshot.forEach((doc) => {
-//             postArry.push({ id: doc.id, ...doc.data() })
-//             console.log(doc.id, " => ", doc.data());
-//             console.log("User's Posts:", postArry);
-//         });
-//         return postArry
-//     } catch (error) {
-//         console.log('error:', error.message);
-
-//     }
-// }
-
-
-// previousBtn.addEventListener('click', async () => {
-//     let Auth = auth.currentUser
-//     let id = Auth.uid
-//     const posts = await getPostsOfCurrentUser(id)
-//     let previousPost = document.getElementById('previousPost')
-//     if (posts) {
-//         posts.forEach((post) => {
-//             previousPost.innerHTML += ` <div class="card my-2" style="background-image: url(${selectedBgSrc}); background-size:cover; background-repeat:no-repeat;background-position:center">
-//         <div class="card-header">@Post</div>
-//         <p class="p-3">${post.time}</p>
-//         <div>
-//         <h1 class="p-3">${post.Title}</h1>
-//         <hr>
-//         <p  class="p-3">${post.post}</p>
-//         </div>`
-//         })
-//     }else {
-//         previousPost.innerHTML = "<p>No posts found for this user.</p>";
-//     }
-
-
-
-
-   
-
 
     // getting all data
     // try {
