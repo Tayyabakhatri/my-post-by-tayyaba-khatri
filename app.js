@@ -201,6 +201,8 @@ send.addEventListener('click', async () => {
 //     }
 // })
 
+
+
 async function getPostsOfCurrentUser(userId) {
     try {
         const postRef = collection(db, "posts");
