@@ -78,7 +78,8 @@ send.addEventListener('click', async () => {
                 <p  class="p-3">${textArea.value}</p>
                 </div>
                 
-                <div class="d-flex gap-3 p-3"><button class="editBtn">Edit</button>
+                <div class="d-flex gap-3 p-3">
+                <button class="editBtn">Edit</button>
                 <button class="delPost" id="del">Delete</button></div>
                 </div>
                 `
